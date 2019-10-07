@@ -25,13 +25,11 @@ variable "rds_iops" {
 
 variable "rds_allocated_storage" {
   description = "The allocated storage in GBs"
-
   # You just give it the number, e.g. 10
 }
 
 variable "rds_engine_type" {
   description = "Database engine type"
-
   # Valid types are
   # - mysql
   # - postgres
@@ -43,7 +41,6 @@ variable "rds_engine_type" {
 
 variable "rds_engine_version" {
   description = "Database engine version, depends on engine type"
-
   # For valid engine versions, see:
   # See http://docs.aws.amazon.com/cli/latest/reference/rds/create-db-instance.html
   # --engine-version
@@ -51,7 +48,6 @@ variable "rds_engine_version" {
 
 variable "rds_instance_class" {
   description = "Class of RDS instance"
-
   # Valid values
   # https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html
 }
@@ -81,23 +77,26 @@ variable "database_name" {
 }
 
 # Self-explainatory variables
-variable "database_user" {}
+variable "database_user" {
+}
 
-variable "database_password" {}
-variable "database_port" {}
+variable "database_password" {
+}
+
+variable "database_port" {
+}
 
 # This is for a custom parameter to be passed to the DB
 # We're "cloning" default ones, but we need to specify which should be copied
 variable "db_parameter_group" {
   description = "Parameter group, depends on DB engine used"
-
   # default = "mysql5.6"
   # default = "postgres9.5"
 }
 
 variable "use_external_parameter_group" {
   description = "Use parameter group specified by `parameter_group_name` instead of built-in one"
-  default = false
+  default     = false
 }
 
 # Use an external parameter group (i.e. defined in caller of this module)
@@ -114,17 +113,17 @@ variable "publicly_accessible" {
 # RDS Subnet Group Variables
 variable "subnets" {
   description = "List of subnets DB should be available at. It might be one subnet."
-  type        = "list"
+  type        = list(string)
 }
 
 variable "private_cidr" {
   description = "VPC private addressing, used for a security group"
-  type        = "list"
+  type        = list(string)
 }
 
 variable "rds_vpc_id" {
   description = "VPC to connect to, used for a security group"
-  type        = "string"
+  type        = string
 }
 
 variable "skip_final_snapshot" {
@@ -143,7 +142,7 @@ variable "backup_window" {
 }
 
 variable "backup_retention_period" {
-  type        = "string"
+  type        = string
   description = "How long will we retain backups"
   default     = 0
 }
@@ -157,3 +156,4 @@ variable "monitoring_interval" {
   description = "To disable collecting Enhanced Monitoring metrics, specify 0. The default is 0. Valid Values: 0, 1, 5, 10, 15, 30, 60."
   default     = "0"
 }
+
