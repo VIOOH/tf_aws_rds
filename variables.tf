@@ -157,3 +157,7 @@ variable "monitoring_interval" {
   default     = "0"
 }
 
+variable "ca_cert_identifier" {
+  description = "CA certificate"
+  default     = "rds-ca-2019"
+}

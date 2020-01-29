@@ -8,14 +8,15 @@
 // - You should want your RDS instance in a VPC
 
 resource "aws_db_instance" "main_rds_instance" {
-  identifier        = var.rds_instance_identifier
-  allocated_storage = var.rds_allocated_storage
-  engine            = var.rds_engine_type
-  engine_version    = var.rds_engine_version
-  instance_class    = var.rds_instance_class
-  name              = var.database_name
-  username          = var.database_user
-  password          = var.database_password
+  identifier          = var.rds_instance_identifier
+  allocated_storage   = var.rds_allocated_storage
+  engine              = var.rds_engine_type
+  engine_version      = var.rds_engine_version
+  instance_class      = var.rds_instance_class
+  name                = var.database_name
+  username            = var.database_user
+  password            = var.database_password
+  ca_cert_identifier  = var.ca_cert_identifier
 
   port = var.database_port
 
