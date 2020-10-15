@@ -161,3 +161,9 @@ variable "ca_cert_identifier" {
   description = "CA certificate"
   default     = "rds-ca-2019"
 }
+
+variable "db_parameters" {
+  description = "A list of db parameter maps to apply"
+  type        = list
+  default     = []
+}

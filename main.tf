@@ -63,16 +63,19 @@ resource "aws_db_parameter_group" "main_rds_instance" {
   name   = "${var.rds_instance_identifier}-${replace(var.db_parameter_group, ".", "")}-custom-params"
   family = var.db_parameter_group
 
-  # Example for MySQL
-  # parameter {
-  #   name = "character_set_server"
-  #   value = "utf8"
-  # }
+  dynamic "parameter" {
+    for_each = var.db_parameters
+    content {
+      # TF-UPGRADE-TODO: The automatic upgrade tool can't predict
+      # which keys might be set in maps assigned here, so it has
+      # produced a comprehensive set here. Consider simplifying
+      # this after confirming which keys can be set in practice.
 
-  # parameter {
-  #   name = "character_set_client"
-  #   value = "utf8"
-  # }
+      apply_method = lookup(parameter.value, "apply_method", null)
+      name         = parameter.value.name
+      value        = parameter.value.value
+    }
+  }
 
   tags = merge(
     var.tags,
